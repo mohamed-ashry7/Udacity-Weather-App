@@ -2,13 +2,13 @@ const apiKey =  'f55bcd2506msh983592a22cacca6p1ee63cjsn879c2068a184';
 const baseURL = "https://community-open-weather-map.p.rapidapi.com/weather?q=" 
 
 
-const updateUI = async (temp) => {
+
+
+const postData = async (temp) => {
+
     const  d = new Date()
     const  newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear()
     const feeling = document.getElementById('feelings').value
-    document.getElementById('date').textContent = newDate
-    document.getElementById('temp').textContent = temp 
-    document.getElementById('content').textContent = feeling
     await fetch('/addNewTemp',{
         method:"POST",
         credentials: 'same-origin',
@@ -23,9 +23,19 @@ const updateUI = async (temp) => {
     })
     .then(res => console.log(res))
     .catch(err => console.log(err))
-    const allData = await fetch('/all')
+
+
+}
+
+const updateUI = async () => {
+    
+    await fetch('/retrieveData')
     .then(res=> res.json())
-    .then(res => console.log(res))
+    .then(res => {
+        document.getElementById('date').innerHTML = res.date
+        document.getElementById('temp').innerHTML = res.temperature 
+        document.getElementById('content').innerHTML = res.userResponse
+    })
     
 }
 const getWeatherData = async ()=> {
@@ -40,8 +50,8 @@ const getWeatherData = async ()=> {
         }
     })
     .then(res => res.json())
-    .then(res => res.main.temp)
-    .then(res => updateUI(res))
+    .then(res => postData(res.main.temp))
+    .then(res => updateUI())
     .catch((err)=>{
         console.log(err)
     })

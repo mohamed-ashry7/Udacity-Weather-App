@@ -1,6 +1,6 @@
 
 
-const projectData = [] 
+let projectData = {}
 const express = require('express')
 const app  = express()
 const bodyParser = require('body-parser')
@@ -14,18 +14,20 @@ app.use(cors())
 
 
 app.use(express.static('website'))
-app.get('/all',(req,res)=>{
+
+app.get('/retrieveData',(req,res)=>{
+    console.log(projectData)
     res.send(projectData)
 })
 
 
 app.post('/addNewTemp',(req,res)=>{
-    projectDataObject = {
+    projectData = {
         temperature:req.body.temperature,
         date:req.body.date,
         userResponse:req.body.userResponse
     }
-    projectData.push(projectDataObject)
+    
     res.sendStatus(200)
 })
 
