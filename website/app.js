@@ -1,5 +1,4 @@
-const apiKey =  'f55bcd2506msh983592a22cacca6p1ee63cjsn879c2068a184'; 
-const baseURL = "https://community-open-weather-map.p.rapidapi.com/weather?q=" 
+const apiKey = 'cdfeb6f65326ce0662b2a9dbdc836ed3'; 
 
 
 
@@ -41,20 +40,15 @@ const updateUI = async () => {
 const getWeatherData = async ()=> {
     
     const zipCode = document.getElementById('zip').value
-    console.log(zipCode)
-    const response = await fetch(baseURL + zipCode,{
-        method:'GET', 
-        headers: {
-            'x-rapidapi-key': apiKey,
-            'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
-        }
+    const URL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}`
+    const response = await fetch(URL,{
+        method:'GET'
+
     })
     .then(res => res.json())
     .then(res => postData(res.main.temp))
     .then(res => updateUI())
-    .catch((err)=>{
-        console.log(err)
-    })
+    .catch(err=>console.log(err))
 }
 
 
