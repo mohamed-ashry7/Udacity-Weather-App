@@ -6,7 +6,7 @@ const apiKey = 'cdfeb6f65326ce0662b2a9dbdc836ed3';
 const postData = async (temp) => {
 
     const  d = new Date()
-    const  newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear()
+    const  newDate = (d.getMonth()+1)+'.'+ d.getDate()+'.'+ d.getFullYear()
     const feeling = document.getElementById('feelings').value
     await fetch('/addNewTemp',{
         method:"POST",
@@ -40,7 +40,7 @@ const updateUI = async () => {
 const getWeatherData = async ()=> {
     
     const zipCode = document.getElementById('zip').value
-    const URL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}`
+    const URL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=imperial&appid=${apiKey}`
     const response = await fetch(URL,{
         method:'GET'
 
